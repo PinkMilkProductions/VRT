@@ -51,6 +51,14 @@ namespace VRMaker
                 //Without this there is no headtracking
                 Camera.main.gameObject.AddComponent<SteamVR_TrackedObject>();
 
+                VRT.Main.FirstEye = new GameObject("FirstEye");
+                VRT.Main.FirstCam = VRT.Main.FirstEye.AddComponent<Camera>();
+                VRT.Main.FirstCam.gameObject.AddComponent<SteamVR_TrackedObject>();
+                VRT.Main.FirstCam.CopyFrom(Camera.main);
+
+                // Without this the right eye gets stuck at a very far point in the map
+                VRT.Main.FirstCam.transform.parent = Camera.main.transform.parent;
+
                 VRT.Main.SecondEye = new GameObject("SecondEye");
                 VRT.Main.SecondCam = VRT.Main.SecondEye.AddComponent<Camera>();
                 VRT.Main.SecondCam.gameObject.AddComponent<SteamVR_TrackedObject>();

@@ -1,12 +1,12 @@
 ﻿{
   "Id": "VRT",
   "DisplayName": "VRT",
-  "Author": "",
+  "Author": "Herr Fristi",
   "Version": "1.0.0",
   "ManagerVersion": "0.25.0",
   "Requirements": [],
   "AssemblyName": "VRT.dll",
   "EntryMethod": "VRT.Main.Load",
   "HomePage": "",
-  "Repository": ""
+  "Repository": "https://github.com/PinkMilkProductions/VRT.git"
 }

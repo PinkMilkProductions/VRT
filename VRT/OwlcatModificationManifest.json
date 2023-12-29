@@ -3,10 +3,10 @@
   "Version": "1.0.0",
   "DisplayName": "VRT",
   "Description": "VRT",
-  "Author": "",
+  "Author": "Herr Fristi",
   "ImageName": "Thumbnail.jpg",
   "WorkshopId": "",
-  "Repository": "",
+  "Repository": "https://github.com/PinkMilkProductions/VRT.git",
   "HomePage": "",
   "Dependencies": []
 }

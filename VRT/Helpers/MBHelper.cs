@@ -23,7 +23,7 @@ namespace VRMaker
         public void Update()
         {
             Logs.WriteInfo("MyHelper Update hook called");
-            if (VRT.Main.SecondCam && Camera.main)
+            if (Camera.main && VRT.Main.SecondCam)
             {
                 CameraManager.HandleStereoRendering();
             }
@@ -33,8 +33,8 @@ namespace VRMaker
         public void OnCreate()
         {
             // Test
-            Logs.WriteInfo("Myhelper OnCreate() CameraManager.HandleStereoRendering() called");
-            CameraManager.HandleStereoRendering();
+            Logs.WriteInfo("Myhelper OnCreate() called");
+            //CameraManager.HandleStereoRendering();
         }
     }
 }

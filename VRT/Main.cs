@@ -36,6 +36,8 @@ static class Main
     public static List<UnityEngine.XR.XRDisplaySubsystem> displays = new List<UnityEngine.XR.XRDisplaySubsystem>();
     public static UnityEngine.XR.XRDisplaySubsystem MyDisplay = null;
 
+    public static GameObject FirstEye = null;
+    public static Camera FirstCam = null;
     public static GameObject SecondEye = null;
     public static Camera SecondCam = null;
 

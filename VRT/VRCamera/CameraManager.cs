@@ -14,11 +14,11 @@ namespace VRMaker
         static CameraManager()
         {
             CurrentCameraMode = VRCameraMode.UI;
-            //Fix near plance clipping for main camera
-            if (Camera.main != null)
+            // Fix it for the First stereo camera
+            if (VRT.Main.FirstCam != null)
             {
-                Camera.main.nearClipPlane = NearClipPlaneDistance;
-                Camera.main.farClipPlane = FarClipPlaneDistance;
+                VRT.Main.FirstCam.nearClipPlane = NearClipPlaneDistance;
+                VRT.Main.FirstCam.farClipPlane = FarClipPlaneDistance;
             }
             // Fix it for the second stereo camera
             if (VRT.Main.SecondCam != null)
@@ -31,10 +31,12 @@ namespace VRMaker
 
         public static void ReduceNearClipping()
         {
-            Camera CurrentCamera = Camera.main;
-            CurrentCamera.nearClipPlane = NearClipPlaneDistance;
-            CurrentCamera.farClipPlane = FarClipPlaneDistance;
-
+            // Fix it for the First stereo camera
+            if (VRT.Main.FirstCam != null)
+            {
+                VRT.Main.FirstCam.nearClipPlane = NearClipPlaneDistance;
+                VRT.Main.FirstCam.farClipPlane = FarClipPlaneDistance;
+            }
             // Fix it for the second stereo camera
             if (VRT.Main.SecondCam != null)
             {
@@ -138,10 +140,24 @@ namespace VRMaker
 
         public static void HandleStereoRendering()
         {
-            Camera.main.fieldOfView = SteamVR.instance.fieldOfView;
-            Camera.main.stereoTargetEye = StereoTargetEyeMask.Left;
-            Camera.main.projectionMatrix = Camera.main.GetStereoProjectionMatrix(Camera.StereoscopicEye.Left);
-            Camera.main.targetTexture = VRT.Main.MyDisplay.GetRenderTextureForRenderPass(0);
+            //Camera.main.fieldOfView = SteamVR.instance.fieldOfView;
+            VRT.Main.FirstCam.gameObject.SetActive(true);
+
+
+            VRT.Main.FirstEye.transform.position = Camera.main.transform.position;
+            VRT.Main.FirstEye.transform.rotation = Camera.main.transform.rotation;
+            VRT.Main.FirstEye.transform.localScale = Camera.main.transform.localScale;
+            VRT.Main.FirstCam.enabled = true;
+            VRT.Main.FirstCam.stereoTargetEye = StereoTargetEyeMask.Left;
+            VRT.Main.FirstCam.projectionMatrix = VRT.Main.FirstCam.GetStereoProjectionMatrix(Camera.StereoscopicEye.Left);
+            VRT.Main.FirstCam.targetTexture = VRT.Main.MyDisplay.GetRenderTextureForRenderPass(0);
+
+            //Camera.main.enabled = true;
+            //Camera.main.stereoTargetEye = StereoTargetEyeMask.Left;
+            //Camera.main.projectionMatrix = Camera.main.GetStereoProjectionMatrix(Camera.StereoscopicEye.Left);
+            //Camera.main.targetTexture = VRT.Main.MyDisplay.GetRenderTextureForRenderPass(0);
+
+            VRT.Main.SecondCam.gameObject.SetActive(true);
 
             VRT.Main.SecondEye.transform.position = Camera.main.transform.position;
             VRT.Main.SecondEye.transform.rotation = Camera.main.transform.rotation;
