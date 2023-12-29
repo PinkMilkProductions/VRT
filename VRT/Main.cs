@@ -67,7 +67,7 @@ static class Main
         // Plugin startup logic
         Logs.WriteInfo($"Plugin VRT is loaded!");
 
-        //new AssetLoader();
+        new AssetLoader();
 
         //If the instance not exit the first time we call the static class
         if (myStaticMB == null)
@@ -141,8 +141,6 @@ static class Main
         HMDModel = SteamVR.instance.hmd_ModelNumber;
 
         new VRInputManager();
-
-        
 
         Logs.WriteInfo("Reached end of InitVRLoader");
 

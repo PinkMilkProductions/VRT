@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Kingmaker;
 using Valve.VR;
+using Kingmaker.Designers;
 
 namespace VRMaker
 {
@@ -14,18 +15,6 @@ namespace VRMaker
         static CameraManager()
         {
             CurrentCameraMode = VRCameraMode.UI;
-            // Fix it for the First stereo camera
-            if (VRT.Main.FirstCam != null)
-            {
-                VRT.Main.FirstCam.nearClipPlane = NearClipPlaneDistance;
-                VRT.Main.FirstCam.farClipPlane = FarClipPlaneDistance;
-            }
-            // Fix it for the second stereo camera
-            if (VRT.Main.SecondCam != null)
-            {
-                VRT.Main.SecondCam.nearClipPlane = NearClipPlaneDistance;
-                VRT.Main.SecondCam.farClipPlane = FarClipPlaneDistance;
-            }
 
         }
 
@@ -45,41 +34,64 @@ namespace VRMaker
             }
         }
 
-        /*
-        public static void TurnOffPostProcessing()
+        public static void SwitchPOV()
         {
-            Camera CurrentCamera = Game.GetCamera();
-            UnityEngine.PostProcessing.PostProcessingBehaviour PPbehaviour = CurrentCamera.GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>();
-            PPbehaviour.enabled = false;
-        }
-        */
+            Logs.WriteInfo("Entered SwitchPOV function");
 
-        public static void AddSkyBox()
-        {
-            //// ADD THE LOADED SKYBOX !!!!
-            //var SceneSkybox = GameObject.Instantiate(AssetLoader.Skybox, Vector3.zeroVector, Quaternion.identityQuaternion);
-            //SceneSkybox.transform.localScale = new Vector3(999999, 999999, 999999);
-            //SceneSkybox.transform.eulerAngles = new Vector3(270, 0, 0);
-            //Renderer rend = SceneSkybox.GetComponent<Renderer>();
-            //rend.enabled = true;
+            Camera OriginalCamera = Game.GetCamera();
+            // If we are not in firstperson
+            if (CameraManager.CurrentCameraMode != CameraManager.VRCameraMode.FirstPerson)
+            {
+                Logs.WriteInfo("Got past cameramode check");
+                if (GameHelper.GetPlayerCharacter() != null)
+                {
+                    Logs.WriteInfo("Got past maincharacter exist check");
+                    // switch to first person
+                    VROrigin.transform.parent = null;
+                    VROrigin.transform.position = GameHelper.GetPlayerCharacter().Position;
+
+                    //VROrigin.transform.LookAt(Game.Instance.Player.MainCharacter.Value.OrientationDirection);
+
+                    if (!OriginalCameraParent)
+                    {
+                        OriginalCameraParent = OriginalCamera.transform.parent;
+                    }
+
+                    OriginalCamera.transform.parent = VROrigin.transform;
+                    if (RightHand)
+                        RightHand.transform.parent = VROrigin.transform;
+                    if (LeftHand)
+                        LeftHand.transform.parent = VROrigin.transform;
+                    CameraManager.CurrentCameraMode = CameraManager.VRCameraMode.FirstPerson;
+                }
+
+            }
+            else
+            {
+                VROrigin.transform.position = OriginalCameraParent.position;
+                VROrigin.transform.rotation = OriginalCameraParent.rotation;
+                VROrigin.transform.localScale = OriginalCameraParent.localScale;
+
+                VROrigin.transform.parent = OriginalCameraParent;
+
+                CameraManager.CurrentCameraMode = CameraManager.VRCameraMode.DemeoLike;
+            }
         }
 
         public static void SpawnHands()
         {
-            //if (!RightHand)
-            //{
-            //    RightHand = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zeroVector, Quaternion.identityQuaternion);
-            //    RightHand.transform.parent = VROrigin.transform;
-            //    Renderer rend = RightHand.GetComponent<Renderer>();
-            //    rend.enabled = true;
-            //}
-            //if (!LeftHand)
-            //{
-            //    LeftHand = GameObject.Instantiate(AssetLoader.LeftHandBase, Vector3.zeroVector, Quaternion.identityQuaternion);
-            //    LeftHand.transform.parent = VROrigin.transform;
-            //    Renderer rend = LeftHand.GetComponent<Renderer>();
-            //    rend.enabled = true;
-            //}
+            if (!RightHand)
+            {
+                //RightHand = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zeroVector, Quaternion.identityQuaternion);
+                RightHand = new GameObject("RightHand");
+                RightHand.transform.parent = VROrigin.transform;
+            }
+            if (!LeftHand)
+            {
+                //LeftHand = GameObject.Instantiate(AssetLoader.LeftHandBase, Vector3.zeroVector, Quaternion.identityQuaternion);
+                LeftHand = new GameObject("LeftHand");
+                LeftHand.transform.parent = VROrigin.transform;
+            }
         }
 
         public static void HandleDemeoCamera()
@@ -92,13 +104,24 @@ namespace VRMaker
                 {
                     Rigidbody tempvar = VROrigin.AddComponent<Rigidbody>();
                     tempvar.useGravity = false;
-                }    
+                }
                 Rigidbody VROriginPhys = VROrigin.GetComponent<Rigidbody>();
 
                 // If we are grabbing with both our hands
                 if (RightHandGrab && LeftHandGrab)
                 {
-                  
+                    // SCALING
+                    // Setup
+                    if (InitialHandDistance == 0f)
+                    {
+                        InitialHandDistance = Vector3.Distance(CameraManager.RightHand.transform.position, CameraManager.LeftHand.transform.position);
+                        ZoomOrigin = VROrigin.transform.position;
+                    }
+                    float HandDistance = Vector3.Distance(CameraManager.RightHand.transform.position, CameraManager.LeftHand.transform.position);
+                    float scale = HandDistance / InitialHandDistance;
+
+                    // Do the actual distance scaling
+                    VROrigin.transform.position = Vector3.LerpUnclamped(GameHelper.GetPlayerCharacter().Position, ZoomOrigin, scale);
 
                     // ROTATING
                     // Setup
@@ -113,7 +136,7 @@ namespace VRMaker
                     RotationVector.y = 0;
                     float Angle = Vector3.SignedAngle(PreviousRotationVector, RotationVector, Vector3.up);
                     Angle = Angle / 2;
-                    
+
                     // Do the actual rotating
                     VROrigin.transform.RotateAround(InitialRotationPoint, Vector3.up, Angle);
 
@@ -125,7 +148,20 @@ namespace VRMaker
                     InitialHandDistance = 0f;
                     InitialRotation = true;
 
-                    
+                    // MOVING CAMERA
+                    SpeedScalingFactor = Mathf.Clamp(Math.Abs(Vector3.Distance(GameHelper.GetPlayerCharacter().Position, VROrigin.transform.position)), 1.0f, FarClipPlaneDistance);
+                    if (RightHandGrab)
+                    {
+                        Vector3 ScaledSpeed = SteamVR_Actions._default.RightHandPose.velocity * SpeedScalingFactor;
+                        Vector3 AdjustedSpeed = new Vector3(-ScaledSpeed.x, -ScaledSpeed.y, -ScaledSpeed.z);
+                        VROriginPhys.velocity = VROrigin.transform.rotation * AdjustedSpeed;
+                    }
+                    if (LeftHandGrab)
+                    {
+                        Vector3 ScaledSpeed = SteamVR_Actions._default.LeftHandPose.velocity * SpeedScalingFactor;
+                        Vector3 AdjustedSpeed = new Vector3(-ScaledSpeed.x, -ScaledSpeed.y, -ScaledSpeed.z);
+                        VROriginPhys.velocity = VROrigin.transform.rotation * AdjustedSpeed;
+                    }
                 }
                 else
                 {
@@ -137,9 +173,27 @@ namespace VRMaker
             }
         }
 
+        public static void HandleFirstPersonCamera()
+        {
+            if (CameraManager.CurrentCameraMode == CameraManager.VRCameraMode.FirstPerson)
+            {
+                // POSITION
+                // Attach our origin to the Main Character's (this function gets called every tick)
+                CameraManager.VROrigin.transform.position = GameHelper.GetPlayerCharacter().Position;
+                //VROrigin.transform.position = Game.Instance.Player.MainCharacter.Value.EyePosition;
+
+                //ROTATION
+                Vector3 RotationEulers = new Vector3(0, Turnrate * RightJoystick.x, 0);
+                VROrigin.transform.Rotate(RotationEulers);
+
+                // Movement is done via a patch
+            }
+        }
 
         public static void HandleStereoRendering()
         {
+            HandleFirstPersonCamera();
+            HandleDemeoCamera();
             //Camera.main.fieldOfView = SteamVR.instance.fieldOfView;
             VRT.Main.FirstCam.gameObject.SetActive(true);
 
@@ -152,11 +206,6 @@ namespace VRMaker
             VRT.Main.FirstCam.projectionMatrix = VRT.Main.FirstCam.GetStereoProjectionMatrix(Camera.StereoscopicEye.Left);
             VRT.Main.FirstCam.targetTexture = VRT.Main.MyDisplay.GetRenderTextureForRenderPass(0);
 
-            //Camera.main.enabled = true;
-            //Camera.main.stereoTargetEye = StereoTargetEyeMask.Left;
-            //Camera.main.projectionMatrix = Camera.main.GetStereoProjectionMatrix(Camera.StereoscopicEye.Left);
-            //Camera.main.targetTexture = VRT.Main.MyDisplay.GetRenderTextureForRenderPass(0);
-
             VRT.Main.SecondCam.gameObject.SetActive(true);
 
             VRT.Main.SecondEye.transform.position = Camera.main.transform.position;
@@ -166,6 +215,8 @@ namespace VRMaker
             VRT.Main.SecondCam.stereoTargetEye = StereoTargetEyeMask.Right;
             VRT.Main.SecondCam.projectionMatrix = VRT.Main.SecondCam.GetStereoProjectionMatrix(Camera.StereoscopicEye.Right);
             VRT.Main.SecondCam.targetTexture = VRT.Main.MyDisplay.GetRenderTextureForRenderPass(1);
+
+            
         }
 
 

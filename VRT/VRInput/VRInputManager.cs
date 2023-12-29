@@ -97,7 +97,13 @@ namespace VRMaker
                 //Add this script to the object
                 VRT.Main.MyHelper = gameObject.AddComponent<MBHelper>();
                 //VRT.Main.MyHelper.gameObject.SetActive(true);
+
+                CameraManager.VROrigin = new GameObject("VROrigin");
+
             }
+            CameraManager.SpawnHands();
+            CameraManager.SwitchPOV();
+            
         }
 
         //public static void TriggerLeftDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
