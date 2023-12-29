@@ -76,6 +76,20 @@ namespace VRMaker
                 //    Owlcat.Runtime.Visual.RenderPipeline.RendererFeatures.FogOfWar.FogOfWarFeature.Instance.DisableFeature();
                 //}
 
+                Logs.WriteInfo("SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency = ");
+                Logs.WriteInfo(SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency.ToString());
+                SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency = false;
+                Logs.WriteInfo("SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency after change = ");
+                Logs.WriteInfo(SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency.ToString());
+
+                Logs.WriteInfo("Time.fixedDeltaTime = ");
+                Logs.WriteInfo(Time.fixedDeltaTime.ToString());
+                Logs.WriteInfo("Time.maximumDeltaTime = ");
+                Logs.WriteInfo(Time.maximumDeltaTime.ToString());
+                Time.maximumDeltaTime = Time.fixedDeltaTime;
+                Logs.WriteInfo("Time.maximumDeltaTime after change = ");
+                Logs.WriteInfo(Time.maximumDeltaTime.ToString());
+
                 //Create an empty object called MyStatic
                 GameObject gameObject = new GameObject("MyHelperTest");
 

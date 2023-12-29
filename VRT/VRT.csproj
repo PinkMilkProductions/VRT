@@ -20,6 +20,9 @@
 			<HintPath>$(SolutionDir)lib\Code_public.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Owlcat.Runtime.Visual">
+		  <HintPath>..\lib\Data\Managed\Owlcat.Runtime.Visual.dll</HintPath>
+		</Reference>
 		<Reference Include="Rewired_Core">
 		  <HintPath>..\lib\Data\Managed\Rewired_Core.dll</HintPath>
 		</Reference>

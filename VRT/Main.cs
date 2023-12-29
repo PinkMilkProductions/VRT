@@ -142,6 +142,8 @@ static class Main
 
         new VRInputManager();
 
+        
+
         Logs.WriteInfo("Reached end of InitVRLoader");
 
         yield return null;

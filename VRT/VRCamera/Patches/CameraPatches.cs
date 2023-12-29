@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Profiling;
 using Kingmaker;
 using Valve.VR;
+using Owlcat.Runtime.Visual.Waaagh.RendererFeatures.PositionBasedDynamics.Passes;
 
 
 namespace VRMaker
@@ -15,6 +16,12 @@ namespace VRMaker
     [HarmonyPatch]
     class CameraPatches
     {
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Owlcat.Runtime.Visual.Waaagh.RendererFeatures.PositionBasedDynamics.Passes.SimulationPass), "CameraCulling")]
+        private static void FixVRTCulling(SimulationPassData data)
+        {
+            data.Cameras = new Camera[6];
+        }
         //[HarmonyPostfix]
         //[HarmonyPatch(typeof(Kingmaker.View.CameraRig), nameof(Kingmaker.View.CameraRig.OnEnable))]
         //private static void OnCameraRigEnabled()
