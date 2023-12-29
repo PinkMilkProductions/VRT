@@ -1,7 +1,7 @@
 WIP VR Mod for Rogue Trader, basically my old Pathfinder Kingmaker/WOTR VR code ported to the Rogue Trader built-in Unity Mod Manager Template.
 Steam Workshop release soon?
 Current state:
-- runs better than VRATH, but only VR in right eye, left eye is dark.
+- Runs pretty OK until you load a different area
 
 How to run VR:
 - Launch the game with this mod, without a controller attached to your PC (it won't get to the main menu if it launches with a game controller (think XBOX/playstation controller) attached)
@@ -11,6 +11,6 @@ How to run VR:
 
 Plans:
 - Early version release on steam workshop before 2024
-- Fix the right eye thing
+- [DONE] Fix the right eye thing
 - Port over the latest kingmaker/WOTR VR mod code so everything works better
-- Fix the wonky VR rendering (camera shakes too much)
+- [DONE?] Fix the wonky VR rendering (camera shakes too much)
