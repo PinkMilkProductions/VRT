@@ -83,9 +83,6 @@ static class Main
         myStaticMB.StartCoroutine(InitVRLoader());
 
         //Game.s_Instance.ControllerMode = Game.ControllerModeType.Gamepad;
-        //Game.Instance.ControllerMode = Game.ControllerModeType.Gamepad;
-
-        //Logs.WriteInfo("ControllerMode is: " + Game.Instance.ControllerMode);
 
         Logs.WriteInfo("Reached end of VRT.Load()");
 

@@ -22,12 +22,12 @@ namespace VRMaker
 
         public void Update()
         {
-            Logs.WriteInfo("MyHelper Update hook called");
+            //Logs.WriteInfo("MyHelper Update hook called");
             if (Camera.main && VRT.Main.SecondCam)
             {
                 CameraManager.HandleStereoRendering();
             }
-            //Controllers.Update();
+            Controllers.Update();
         }
 
         public void OnCreate()

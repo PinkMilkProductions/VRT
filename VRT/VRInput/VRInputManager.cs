@@ -1,4 +1,5 @@
-﻿using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
+﻿using Kingmaker;
+using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace VRMaker
             SteamVR_Actions._default.grableft.AddOnStateUpListener(GrabLeftUp, SteamVR_Input_Sources.Any);
             SteamVR_Actions._default.switchpov.AddOnStateDownListener(OnSwitchPOVDown, SteamVR_Input_Sources.Any);
             Logs.WriteInfo("switchpov bound");
+
+            //Debug
+            SteamVR_Actions._default.pause.AddOnStateDownListener(OnPauseDown, SteamVR_Input_Sources.Any);
 
             // VECTOR 2Ds
             SteamVR_Actions._default.move.AddOnUpdateListener(OnLeftJoystickUpdate, SteamVR_Input_Sources.Any);
@@ -106,11 +110,14 @@ namespace VRMaker
             
         }
 
-        //public static void TriggerLeftDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
-        //{
-        //    //Logs.WriteInfo("TriggerLeft is Down");
-        //    LogBinds();
-        //}
+        public static void OnPauseDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+        {
+            Logs.WriteInfo("pause is Down");
+            Game.Instance.ControllerMode = Game.ControllerModeType.Gamepad;
+            Logs.WriteInfo("ControllerMode is: " + Game.Instance.ControllerMode);
+            Controllers.Init();
+            LogBinds();
+        }
 
         public static void GrabRightDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
@@ -173,11 +180,11 @@ namespace VRMaker
         }
 
 
-        //// GAMEPAD STUFF
+        // GAMEPAD STUFF
 
-        //public static void LogBinds()
-        //{
-        //    //Controllers.LogAllGameActions(Kingmaker.Assets.Console.GamepadInput.GamePad.Instance.Player);
-        //}
+        public static void LogBinds()
+        {
+            Controllers.LogAllGameActions(Owlcat.Runtime.UI.ConsoleTools.GamepadInput.GamePad.Instance.Player);
+        }
     }
 }
