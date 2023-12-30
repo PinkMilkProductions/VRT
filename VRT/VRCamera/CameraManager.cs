@@ -62,6 +62,10 @@ namespace VRMaker
                         RightHand.transform.parent = VROrigin.transform;
                     if (LeftHand)
                         LeftHand.transform.parent = VROrigin.transform;
+                    if (VRT.Main.FirstCam)
+                        VRT.Main.FirstCam.transform.parent = VROrigin.transform;
+                    if (VRT.Main.SecondCam)
+                        VRT.Main.SecondCam.transform.parent = VROrigin.transform;
                     CameraManager.CurrentCameraMode = CameraManager.VRCameraMode.FirstPerson;
                 }
 
@@ -198,9 +202,9 @@ namespace VRMaker
             VRT.Main.FirstCam.gameObject.SetActive(true);
 
 
-            VRT.Main.FirstEye.transform.position = Camera.main.transform.position;
-            VRT.Main.FirstEye.transform.rotation = Camera.main.transform.rotation;
-            VRT.Main.FirstEye.transform.localScale = Camera.main.transform.localScale;
+            VRT.Main.FirstEye.transform.position = Game.GetCamera().transform.position;
+            VRT.Main.FirstEye.transform.rotation = Game.GetCamera().transform.rotation;
+            VRT.Main.FirstEye.transform.localScale = Game.GetCamera().transform.localScale;
             VRT.Main.FirstCam.enabled = true;
             VRT.Main.FirstCam.stereoTargetEye = StereoTargetEyeMask.Left;
             VRT.Main.FirstCam.projectionMatrix = VRT.Main.FirstCam.GetStereoProjectionMatrix(Camera.StereoscopicEye.Left);
@@ -208,9 +212,9 @@ namespace VRMaker
 
             VRT.Main.SecondCam.gameObject.SetActive(true);
 
-            VRT.Main.SecondEye.transform.position = Camera.main.transform.position;
-            VRT.Main.SecondEye.transform.rotation = Camera.main.transform.rotation;
-            VRT.Main.SecondEye.transform.localScale = Camera.main.transform.localScale;
+            VRT.Main.SecondEye.transform.position = Game.GetCamera().transform.position;
+            VRT.Main.SecondEye.transform.rotation = Game.GetCamera().transform.rotation;
+            VRT.Main.SecondEye.transform.localScale = Game.GetCamera().transform.localScale;
             VRT.Main.SecondCam.enabled = true;
             VRT.Main.SecondCam.stereoTargetEye = StereoTargetEyeMask.Right;
             VRT.Main.SecondCam.projectionMatrix = VRT.Main.SecondCam.GetStereoProjectionMatrix(Camera.StereoscopicEye.Right);
