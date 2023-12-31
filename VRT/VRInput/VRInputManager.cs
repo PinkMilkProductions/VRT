@@ -50,8 +50,6 @@ namespace VRMaker
             if (!(VRT.Main.FirstCam && VRT.Main.SecondCam))
             {
 
-                CameraManager.ReduceNearClipping();
-
                 //Without this there is no headtracking
                 Camera.main.gameObject.AddComponent<SteamVR_TrackedObject>();
 
@@ -80,7 +78,7 @@ namespace VRMaker
                 //    Owlcat.Runtime.Visual.RenderPipeline.RendererFeatures.FogOfWar.FogOfWarFeature.Instance.DisableFeature();
                 //}
 
-
+                CameraManager.ReduceNearClipping();
 
                 CameraManager.VROrigin = new GameObject("VROrigin");
 
