@@ -106,7 +106,7 @@ namespace VRMaker
             Logs.WriteInfo("customcontroller created");
 
             //customController.useUpdateCallbacks = false;
-            customController.knGNQPKVYdxKNyCAfwfSjSJqToek = false;
+            //customController.knGNQPKVYdxKNyCAfwfSjSJqToek = false;
 
             Logs.WriteInfo("returning customcontroller: ");
             Logs.WriteInfo(customController.ToString());
