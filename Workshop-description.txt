@@ -1,1 +1,65 @@
-[h1]VRT[/h1]
+[h1]VRT - Virtual Reality Trader[/h1]
+
+IMPORTANT: RISK OF INTENSE FLASHING IMAGERY.
+THIS MOD IS IN A VERY EARLY STATE. THINGS WILL BREAK, SUCK OR NOT WORK AT ALL.
+MAY ANGER THE MACHINE SPIRITS OF YOUR COGITATOR AND/OR VIRTUAL REALITY AUGMETIC
+
+INSTALLATION NOTE: PLEASE READ THE INSTALL INSTRUCTIONS. If this mod does not work at all, you may need extra files. I will add a .zip with the missing requirements to this description if necessary.
+Installation of these files should just be unzipping it in your root directory and possibly allowing it to overwrite a few .dlls of the game.
+
+
+Welcome to the steam workshop page for VRT, a full Virtual Reality mod for Rogue Trader. Despite benefiting from VR mod code written for both Pathfinder games,
+this mod is still in an early stage of development. I'm uploading it to the workshop already so it doesn't end up rotting on my hard drive almost-playable for months (like the pathfinder VR mods).
+I hope someone out there will enjoy it regardless. It makes for a nice novelty already.
+
+FEATURES:
+- 6DOF Stereoscopic Rendering
+- First-person view toggle
+- Demeo-like camera controls
+- Use your VR controllers to control the game as if they were a gamepad
+- Main UI converted to VR plane
+
+CURRENT ISSUES:
+- Needs some kind of Gamepad (think: Xbox controller) to get past the start menu for now.
+- VR rendering is a bit jittery (oversensitive to head movements)
+- Controller bindings only provided for Oculus touch controllers (You should be able to make your own bindings for other controllers)
+- Missing D-pad controls for VR controllers
+- Only the Main UI shows up in VR atm
+- Needs more testing
+- Demeo camera controls not perfect yet
+
+INSTALL INSTRUCTIONS (WIP):
+- click the subscribe button, possible enable the mod in the Unity mod Manager?
+
+HOW TO PLAY:
+- The first time you launch it after downloading this mod, or after it updates it will likely not launch and my GPU even has some coil whine at this point. Just Close the game and launch it a second time.
+- Make sure there is no gamepad plugged into the computer (otherwise the game won't load atm)
+- Also make sure SteamVR isn't running with a (greyed out) gamepad icon. This happens when a gamepad was connected when SteamVR was active.
+if so, just close SteamVR.
+- Launch the game, nothing will show up in VR yet.
+- Get to the start menu
+- Now connect your gamepad, press A to switch to Gamepad mode
+- From now on, the VR controllers can emulate the gamepad (if your bindings are set up.Only Oculus touch bindings are included with the mod atm.)
+- Load a save or try to start a new game from the monitor
+- Use your gamepad's A button to confirm the loading screen when it's done
+- Press "SwitchPOV" (Y button for Oculus controllers) To enter VR!
+You can press it again to toggle between traditional Top-down view and first person POV at mostly any time.
+When in Top-down view, you can move the camera with both grab buttons (not the triggers). It's pretty cool.
+From here on out, it's technically possible to play the game using your Gamepad or VR controllers. Besides the currently missing D-pad controls,
+the VR controls are set up with a similar layout to the gamepad controls.
+
+SOME PLANNED UPDATES:
+- Fix all the issues, especially the need to have a gamepad
+- Improved, expanded first-person mode.
+- adding hand models, smart skybox system and other assets
+- Immersive first-person controls (pointing gun at enemy to select target, holsters for items etc)
+- Immersive tabletop controls (throwing virtual dice when RNG happens etc)
+- bHaptics support if possible (because I WANT TO FEEL THE WARP OVERTAKING ME)
+- Co-op support for everything (this will likely be painful to code)
+
+TECHNICAL:
+- This mod uses the built-in Unity Mod Manager of the game, so it should be compatible with mods that stay within the general framework of the game.
+- Tested with a Quest 3 via Virtual Desktop and Steam Link, an USB XBOX controller, running on a RX 7900XT GPU and AMD R7600 processor. Performance was usually a steady 45 fps with spacewarp to feel like 90 fps. Pretty smooth, but i have low standards.
+- This steam workshop page was created and uploaded via the Rogue Trader modding nuget template
+
+I'm usually pretty busy so i can't promise frequent updates, both of this text and of the mod. I do have big plans for it though.
