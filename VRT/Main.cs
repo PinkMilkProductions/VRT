@@ -81,8 +81,8 @@ static class Main
         }
 
         myStaticMB.StartCoroutine(InitVRLoader());
-
         //Game.s_Instance.ControllerMode = Game.ControllerModeType.Gamepad;
+        Game.Instance.ControllerMode = Game.ControllerModeType.Gamepad;
 
         Logs.WriteInfo("Reached end of VRT.Load()");
 
@@ -138,6 +138,13 @@ static class Main
         HMDModel = SteamVR.instance.hmd_ModelNumber;
 
         new VRInputManager();
+
+        //Create an empty object called MyHelper
+        GameObject gameObject = new GameObject("MyHelper");
+        //Add this script to the object
+        VRT.Main.MyHelper = gameObject.AddComponent<MBHelper>();
+        //VRT.Main.MyHelper.gameObject.SetActive(true);
+        Controllers.Init();
 
         Logs.WriteInfo("Reached end of InitVRLoader");
 

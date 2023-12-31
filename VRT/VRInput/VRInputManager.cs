@@ -47,7 +47,7 @@ namespace VRMaker
         public static void OnSwitchPOVDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
             Logs.WriteInfo("OnSwitchPOVDown called");
-            if (VRT.Main.MyHelper == null)
+            if (!(VRT.Main.FirstCam && VRT.Main.SecondCam))
             {
 
                 CameraManager.ReduceNearClipping();
@@ -80,31 +80,13 @@ namespace VRMaker
                 //    Owlcat.Runtime.Visual.RenderPipeline.RendererFeatures.FogOfWar.FogOfWarFeature.Instance.DisableFeature();
                 //}
 
-                Logs.WriteInfo("SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency = ");
-                Logs.WriteInfo(SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency.ToString());
-                SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency = false;
-                Logs.WriteInfo("SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency after change = ");
-                Logs.WriteInfo(SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency.ToString());
 
-                Logs.WriteInfo("Time.fixedDeltaTime = ");
-                Logs.WriteInfo(Time.fixedDeltaTime.ToString());
-                Logs.WriteInfo("Time.maximumDeltaTime = ");
-                Logs.WriteInfo(Time.maximumDeltaTime.ToString());
-                Time.maximumDeltaTime = Time.fixedDeltaTime;
-                Logs.WriteInfo("Time.maximumDeltaTime after change = ");
-                Logs.WriteInfo(Time.maximumDeltaTime.ToString());
-
-                //Create an empty object called MyStatic
-                GameObject gameObject = new GameObject("MyHelperTest");
-
-
-                //Add this script to the object
-                VRT.Main.MyHelper = gameObject.AddComponent<MBHelper>();
-                //VRT.Main.MyHelper.gameObject.SetActive(true);
 
                 CameraManager.VROrigin = new GameObject("VROrigin");
 
             }
+            SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency = false;
+            Time.maximumDeltaTime = Time.fixedDeltaTime;
             CameraManager.SpawnHands();
             CameraManager.SwitchPOV();
             
@@ -184,7 +166,8 @@ namespace VRMaker
 
         public static void LogBinds()
         {
-            Controllers.LogAllGameActions(Owlcat.Runtime.UI.ConsoleTools.GamepadInput.GamePad.Instance.Player);
+            //Controllers.LogAllGameActions(Owlcat.Runtime.UI.ConsoleTools.GamepadInput.GamePad.Instance.Player);
+            Controllers.LogAllGameActions(Owlcat.Runtime.UI.ConsoleTools.GamepadInput.GamePad.s_Instance.Player);
         }
     }
 }
