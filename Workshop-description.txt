@@ -60,6 +60,6 @@ SOME PLANNED UPDATES:
 TECHNICAL:
 - This mod uses the built-in Unity Mod Manager of the game, so it should be compatible with mods that stay within the general framework of the game.
 - Tested with a Quest 3 via Virtual Desktop and Steam Link, an USB XBOX controller, running on a RX 7900XT GPU and AMD R7600 processor. Performance was usually a steady 45 fps with spacewarp to feel like 90 fps. Pretty smooth, but i have low standards.
-- This steam workshop page was created and uploaded via the Rogue Trader modding nuget template
+- This steam workshop page was created and uploaded via the Rogue Trader modding nuget template and is also a WIP.
 
 I'm usually pretty busy so i can't promise frequent updates, both of this text and of the mod. I do have big plans for it though.
