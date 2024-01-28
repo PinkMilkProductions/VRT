@@ -121,13 +121,12 @@ namespace VRMaker
 
         // PERFORMANCE PATCHES - END
 
-        //[HarmonyPrefix]
-        //[HarmonyPatch(typeof(Game), "ControllerMode", MethodType.Getter)]
-        //private static bool ForceGamePad(Game __instance)
-        //{
-        //    __instance.m_ControllerMode = Game.ControllerModeType.Gamepad;
-        //    return true;
-        //}
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Game), "ControllerMode", MethodType.Getter)]
+        private static void ForceGamePad(ref Game.ControllerModeType __result)
+        {
+            __result = Game.ControllerModeType.Gamepad;
+        }
 
         //Movement (deprecated now that we are remapping inputs)
 

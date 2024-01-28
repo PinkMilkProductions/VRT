@@ -22,15 +22,19 @@
 		</Reference>
 		<Reference Include="Owlcat.Runtime.Visual">
 		  <HintPath>..\lib\Data\Managed\Owlcat.Runtime.Visual.dll</HintPath>
+			<Private>False</Private>
 		</Reference>
 		<Reference Include="Rewired_Core">
 		  <HintPath>..\lib\Publicized\Rewired_Core.dll</HintPath>
+			<Private>False</Private>
 		</Reference>
 		<Reference Include="Rewired_Windows">
 		  <HintPath>..\lib\Publicized\Rewired_Windows.dll</HintPath>
+			<Private>False</Private>
 		</Reference>
 		<Reference Include="Rewired_Windows_Functions">
 		  <HintPath>..\lib\Publicized\Rewired_Windows_Functions.dll</HintPath>
+			<Private>False</Private>
 		</Reference>
 		<Reference Include="RogueTrader.GameCore">
 			<HintPath>$(SolutionDir)lib\RogueTrader.GameCore_public.dll</HintPath>
