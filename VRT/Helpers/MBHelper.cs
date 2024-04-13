@@ -27,7 +27,14 @@ namespace VRMaker
             {
                 CameraManager.HandleStereoRendering();
             }
+            // Used for determining a transform for the loadingscreen when there is no camera.
+            if (Kingmaker.Game.GetCamera())
+                VRT.Main.MyHelper.transform.position = Kingmaker.Game.GetCamera().transform.position + Kingmaker.Game.GetCamera().transform.forward;
+            //Lazy fix for the load save menu clipping at the main menu
+            if (Camera.main.nearClipPlane > 0.2f)
+                CameraManager.ReduceNearClipping();
             Controllers.Update();
+            CameraManager.HandleSkyBox();
         }
 
         public void OnCreate()

@@ -114,6 +114,7 @@ static class Main
 
         var settings = OpenVRSettings.GetSettings();
         settings.StereoRenderingMode = OpenVRSettings.StereoRenderingModes.MultiPass;
+        //settings.StereoRenderingMode = OpenVRSettings.StereoRenderingModes.SinglePassInstanced;
 
 
         generalSettings.Manager = managerSettings;
